@@ -19,3 +19,20 @@ files:
     add:
       category: 'top50'
   cities51-100.csv:
+
+data_dictionary:
+  state:
+    source: USPS
+    type: string
+  name:
+    source: NAME
+    type: string
+  population:
+    source: POP10
+    type: integer
+  location.lat:
+    source: INTPTLAT
+    type: float
+  location.lon:
+    source: INTPTLONG
+    type: float

@@ -5,7 +5,18 @@ module DataMagic
     end
 
     def self.global_mapping
+      if @global_mapping.empty?
+        @global_mapping =
+          self.data_dictionary.each {|key, value|
+            @global_mapping[value[:source]] = key
+          }
+      end
+
       @global_mapping
+    end
+
+    def self.data_dictionary
+      @data_dictionary
     end
 
     def self.page_size
@@ -17,6 +28,7 @@ module DataMagic
     @files = []
     @api_endpoints = {}
     @global_mapping = {}
+    @data_dictionary = {}
     @page_size = 10
 
     def self.data_path
@@ -67,6 +79,7 @@ module DataMagic
       index = @data['index'] || 'general'
       endpoint = @data['api'] || 'data'
       @global_mapping = @data['global_mapping'] || {}
+      @data_dictionary = @data['data_dictionary'] || {}
       @api_endpoints[endpoint] = {index: index}
 
       file_config = @data['files']
