@@ -205,8 +205,8 @@ eos
       result = DataMagic.search({name: "Chicago"}, api: 'cities')
       expected["results"] = [
         { "state"=>"IL", "name"=>"Chicago",
-          "population"=>"2695598",
-          "latitude"=>"41.837551", "longitude"=>"-87.681844",
+          "population"=>2695598,
+          "latitude"=>41.837551, "longitude"=> -87.681844,
           "category"=>"top50"
         }
       ]

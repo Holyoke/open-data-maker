@@ -151,7 +151,18 @@ def self.map_field_names(row, new_fields)
   row.each do |key, value|
     new_key = new_fields[key.to_sym] || new_fields[key.to_s]
     if new_key
-      value = value.to_f if new_key.include? "location"
+      # TO DO: this should be factored into its own method
+      byebug 
+      unless Config.data_dictionary[new_key].nil?
+        case Config.data_dictionary[new_key]["type"]
+        when "String"
+          value = value.to_s
+        when "Float"
+          value = value.to_f
+        when "Integer"
+          value = value.to_i
+        end
+      end
       mapped[new_key] = value
     end
   end

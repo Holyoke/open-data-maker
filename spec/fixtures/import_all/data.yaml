@@ -23,16 +23,16 @@ files:
 data_dictionary:
   state:
     source: USPS
-    type: string
+    type: String
   name:
     source: NAME
-    type: string
+    type: String
   population:
     source: POP10
-    type: integer
-  location.lat:
+    type: Integer
+  location:
     source: INTPTLAT
-    type: float
-  location.lon:
+    type: Float
+  longitude:
     source: INTPTLONG
-    type: float
+    type: Float
