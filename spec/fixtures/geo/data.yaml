@@ -7,9 +7,15 @@
 # head -n 101 results.txt > cities100.txt
 # then convertes to csv and removed " city" from after each city name
 global_mapping:
-  city: city
-  lat: location.lat
-  lon: location.lon
+  city:
+    source: city
+    type: string
+  location.lat:
+    source: lat
+    type: float
+  location.lon:
+    source: lon
+    type: float
 
 index: place-data
 api: places
