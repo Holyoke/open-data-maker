@@ -58,6 +58,7 @@ module DataMagic
 
   # thin layer on elasticsearch query
   def self.search(terms, options = {})
+    terms_dup = terms.dup
     terms = IndifferentHash.new(terms)
     options[:fields] ||= []
     fields = options[:fields].map { |field| field.to_s }
@@ -79,12 +80,14 @@ module DataMagic
     terms.delete(:page)
     terms.delete(:per_page)
 
-    # logger.info "--> terms: #{terms.inspect}"
     squery = squery.where(terms) unless terms.empty?
-    #need to introduce a parameter to override default "or" operator
+
     modified_query = squery.to_search
-    # modified_query[:match]["name"][:operator] = "and
-    # modified_query[:match][:operator] = "and"
+    if modified_query[:match]
+      modified_query[:match].each do |key, value|
+        modified_query[:match][key]["minimum_should_match"] = "2"
+      end
+    end
 
     full_query = {
       index: index_name,
@@ -100,7 +103,6 @@ module DataMagic
     end
 
     logger.info "===========> full_query:#{full_query.inspect}"
-
     result = client.search full_query
     logger.info "result: #{result.inspect}"
     hits = result["hits"]
