@@ -83,7 +83,12 @@ module DataMagic
     squery = squery.where(terms) unless terms.empty?
 
     modified_query = squery.to_search
-    if modified_query[:match]
+
+    #this block of code will introduce a
+    #'minimum_should_match' parameter to each query
+    #in order to control query precision
+
+    unless modified_query[:match].nil?
       modified_query[:match].each do |key, value|
         modified_query[:match][key]["minimum_should_match"] = "2"
       end
