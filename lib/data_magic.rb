@@ -58,7 +58,6 @@ module DataMagic
 
   # thin layer on elasticsearch query
   def self.search(terms, options = {})
-    terms_dup = terms.dup
     terms = IndifferentHash.new(terms)
     options[:fields] ||= []
     fields = options[:fields].map { |field| field.to_s }
