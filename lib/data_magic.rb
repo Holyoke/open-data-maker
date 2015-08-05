@@ -81,10 +81,10 @@ module DataMagic
 
     # logger.info "--> terms: #{terms.inspect}"
     squery = squery.where(terms) unless terms.empty?
-
     #need to introduce a parameter to override default "or" operator
     modified_query = squery.to_search
-    modified_query[:match]["name"][:operator] = "and"
+    # modified_query[:match]["name"][:operator] = "and
+    # modified_query[:match][:operator] = "and"
 
     full_query = {
       index: index_name,
